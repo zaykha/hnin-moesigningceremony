@@ -1,0 +1,22 @@
+/* ConfettiEffect.css */
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 50;
+  animation: fall 5s linear infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-50vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(50vh) rotate(720deg);
+    opacity: 0;
+  }
+}

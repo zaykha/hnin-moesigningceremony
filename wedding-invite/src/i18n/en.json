@@ -1,0 +1,17 @@
+{
+    "termsAndConditions": {
+      "heading": "Terms and Conditions",
+      "welcome": "Welcome to {{companyName}}. These terms and conditions outline the rules and regulations for the use of {{companyName}}'s Website, located at {{websiteUrl}}.",
+      "intellectualPropertyRights": "Intellectual Property Rights",
+      "intellectualPropertyRightsContent": "Other than the content you own, under these Terms, {{companyName}} and/or its licensors own all the intellectual property rights and materials contained in this Website.",
+      "restrictions": "Restrictions",
+      "publishing": "Publishing any Website material in any other media.",
+      "selling": "Selling, sublicensing and/or otherwise commercializing any Website material.",
+      "performing": "Publicly performing and/or showing any Website material.",
+      "damagingUse": "Using this Website in any way that is or may be damaging to this Website.",
+      "privacy": "Your Privacy",
+      "privacyContent": "Please read our Privacy Policy.",
+      "governingLaw": "Governing Law",
+      "governingLawContent": "Any disputes related to these terms and conditions will be governed by the laws of the country where the company is established, without regard to its conflict of law provisions."
+    }
+  }
