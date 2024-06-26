@@ -80,8 +80,8 @@ const StyledContainer = styled.div`
   }
 `;
 const Form = styled.div`
-  max-width: 400px;
-  margin: 0 auto;
+  // max-width: 400px;
+  // margin: 0 auto;
   display: flex;
   flex-direction: column;
   z-index: 999;
@@ -92,8 +92,8 @@ const Form = styled.div`
   // flex-wrap: wrap;
   border: 1px solid grey;
   border-radius: 15px;
-  margin: 20px auto;
-  // padding: 20px;
+  margin: 20px 0;
+  padding: 20px;
   @media screen and (max-width: 1200px) {
     width: 90vw;
     // padding: 1.1rem;
@@ -113,7 +113,7 @@ const Form1 = styled.form`
   border: 1px solid grey;
   border-radius: 15px;
   margin: 20px auto;
-  // padding: 20px;
+  padding: 20px;
   @media screen and (max-width: 1200px) {
     width: 90vw;
     // padding: 1.1rem;
@@ -121,8 +121,9 @@ const Form1 = styled.form`
 `;
 const Flexdiv = styled.div`
   // border: 1px solid red;
-  width: 90vw;
+  width: 70vw;
   display: flex;
+  justify-content:space-evenly;
   flex-wrap: wrap;
 `;
 const Label = styled.label`
@@ -364,6 +365,9 @@ const RSVPForm = ({ GuestNames }) => {
         attendance[name] === "attending" || attendance[name] === "not_attending"
     );
   };
+  const noGuestsAttended = () => {
+    return GuestNames.every((name) => attendance[name] === "not_attending");
+  };
   const handleDishSelection = (name, dishType, dish) => {
     setDishSelections((prev) => ({
       ...prev,
@@ -374,13 +378,40 @@ const RSVPForm = ({ GuestNames }) => {
     }));
   };
   const [step, setStep] = useState(1);
-
-  const handleNextStep = () => {
-    if (step === 4 && !allGuestsAttended()) {
-      setShowAttendanceError(true); // Display error if attendance is incomplete
+  const updateFirestoreWithAttendance = async () => {
+    try {
+      // Replace "yourDocumentId" with the actual document ID
+      const updatedGuests = GuestNames.map((name) => ({
+        name,
+        attending: attendance[name],
+      }));
+      await addDoc(collection(db, "rsvps"), {
+        guests: updatedGuests,
+      });
+      console.log("Firestore updated successfully");
+    } catch (error) {
+      console.error("Error updating Firestore: ", error);
+    }
+  };
+  const handleNextStep =async() => {
+    setIsLoading(true);
+    if (step === 4) {
+      if (noGuestsAttended()) {
+        await updateFirestoreWithAttendance();
+        navigate("/WeWillMissYou");
+        setIsLoading(false);
+      } else if (allGuestsAttended()) {
+        setShowAttendanceError(false); // Reset error state if attendance is complete
+        setStep(step + 1);
+        setIsLoading(false);
+      } else {
+        setShowAttendanceError(true); // Display error if attendance is incomplete
+        setIsLoading(false);
+      }
     } else {
       setShowAttendanceError(false); // Reset error state if attendance is complete
       setStep(step + 1); // Proceed to the next step
+      setIsLoading(false);
     }
   };
 
@@ -564,20 +595,6 @@ const RSVPForm = ({ GuestNames }) => {
             <Flexdiv>
               {GuestNames.map((name, index) => (
                 <Form key={index}>
-                  {/* <div
-                    
-                    style={{
-                      // width: "20%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexWrap: "wrap",
-                      border: "1px solid grey",
-                      borderRadius: "15px",
-                      margin: "20px auto",
-                      padding: "20px",
-                    }}
-                  > */}
                   <input
                     style={{
                       background: "none",
@@ -721,9 +738,14 @@ const RSVPForm = ({ GuestNames }) => {
           </Form1>
         )}
         {step < 5 ? (
+           isLoading ? (
+            <LoaderContainer>
+              <LoaderRing />
+            </LoaderContainer>
+          ) : (
           <StyledButtonWithIcon type="button" onClick={handleNextStep}>
             {t("Next")}
-          </StyledButtonWithIcon>
+          </StyledButtonWithIcon>)
         ) : (
           <></>
         )}

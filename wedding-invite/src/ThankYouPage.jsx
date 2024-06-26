@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import bgmobile from "./assets/bg1.jpg";
 import styled from "styled-components";
@@ -60,6 +60,15 @@ const StyledContainer = styled.div`
 const ThankYouPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const handleRedirect = () => {
+    navigate("/", { replace: true });
+  };
+  useEffect(() => {
+    window.history.pushState(null, "", window.location.href);
+    window.onpopstate = () => {
+      handleRedirect();
+    };
+  }, [navigate]);
   return (
     <Container>
       <BgContainer/>
