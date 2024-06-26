@@ -1,5 +1,5 @@
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import React from "react";
+import styled, { keyframes } from "styled-components";
 
 // Random number function
 const random = (min, max) => Math.random() * (max - min) + min;
@@ -38,7 +38,7 @@ const GlitterContainer = styled.div`
   height: 100%;
 `;
 
-const GlitterEffect = ({ numGlitters = 20 }) => {
+const GlitterEffect = ({ numGlitters = 30 }) => {
   const glitters = [];
 
   // Generate random glitters
@@ -50,7 +50,15 @@ const GlitterEffect = ({ numGlitters = 20 }) => {
       top: `${random(-20, 90)}vh`, // Random vertical position
       left: `${random(-20, 90)}vw`, // Random horizontal position
     };
-    glitters.push(<Glitter key={i} size={size} duration={duration} delay={delay} style={style} />);
+    glitters.push(
+      <Glitter
+        key={i}
+        size={size}
+        duration={duration}
+        delay={delay}
+        style={style}
+      />
+    );
   }
 
   return <GlitterContainer>{glitters}</GlitterContainer>;

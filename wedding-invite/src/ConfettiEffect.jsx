@@ -12,7 +12,7 @@ const ConfettiEffect = () => {
       const confetti = document.createElement('div');
       confetti.classList.add('confetti');
       confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      confetti.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
+      confetti.style.left = Math.random() * 80 + 'vw'; // Random horizontal position
       confetti.style.animationDuration = Math.random() * 2 + 1 + 's'; // Random animation duration
       container.appendChild(confetti);
 

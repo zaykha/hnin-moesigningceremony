@@ -12,34 +12,44 @@ const flashAnimation = keyframes`
   0%, 100% { opacity: 0; }
   50% { opacity: 1; }
 `;
-
-const FlashingTitle = styled.h2`
-  animation: ${flashAnimation} 3s infinite;
-  text-align: center;
-  margin-top: 50px;
-`;
-const LSContainer = styled.div`
+const BgContainer = styled.div`
   width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  height: 100svh;
+  position: fixed;
   background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
     url(${bgmobile}) no-repeat;
   background-size: cover;
   background-position: center;
+  z-index:-3;
+`;
+const FlashingTitle = styled.h3`
+
+  animation: ${flashAnimation} 3s infinite;
+  text-align: center;
+  // margin-top: 50px;
+`;
+const LSContainer = styled.div`
+  width: 100%;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  // background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+  //   url(${bgmobile}) no-repeat;
+  // background-size: cover;
+  // background-position: center;
 
   @media screen and (max-width: 1200px) {
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2)),
-      url(${bgmobile}) no-repeat;
-    background-size: cover;
-    background-position: center;
+    // background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2)),
+    //   url(${bgmobile}) no-repeat;
+    // background-size: cover;
+    // background-position: center;
   }
 `;
 
 const FlagIMG = styled.img`
-  width: 200px;
+  width: 150px;
   margin-left: 10px;
   cursor: pointer;
   transition: 0.5s;
@@ -86,12 +96,15 @@ const LanguageSelection = ({ setLanguage }) => {
   }, []);
   return (
     <LSContainer data-aos="fade-in" data-aos-delay="200">
+    <BgContainer></BgContainer>
       {/* <h1 style={{color: 'white'}}>Welcome to our Wedding RSVP</h1> */}
       <div
         style={{
+          width: "90%",
           padding: "3rem",
           display: "flex",
           flexDirection: "column",
+          alignItems:'center',
           //   marginTop: "30px",
           background: "rgba(0, 0, 0, 0.2)",
           borderRadius: "16px",
@@ -115,6 +128,7 @@ const LanguageSelection = ({ setLanguage }) => {
           />
         </div>
       </div>
+      
     </LSContainer>
   );
 };

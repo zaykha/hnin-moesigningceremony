@@ -43,24 +43,27 @@ const Letter = styled.div`
   border: 2px solid #c0a16b;
   padding: 20px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: "Parisienne", cursive;
-  font-size: 1.7rem;
+  // font-family: "Parisienne", cursive;
+  font-size: 1.1rem;
   text-align: center;
   position: relative;
   //   max-height: 0;
   overflow: hidden;
   transition: max-height 2s ease-out;
-   @media screen and (max-width: 1200px) {
+  @media screen and (max-width: 1200px) {
     width: 90%;
+    padding: 5%;
+    font-size: 0.8rem;
   }
 `;
 
-const RoyalHeader = styled.span`
+const RoyalHeader = styled.h2`
   font-weight: bold;
-  font-size: 1.8rem;
+  font-size: 1rem;
+  line-height: 1.8rem;
   /* Apply shimmer animation */
-//   animation: ${(props) => (props.shimmer ? shimmerAnimation : "none")} 8s
-//     infinite linear;
+  //   animation: ${(props) => (props.shimmer ? shimmerAnimation : "none")} 8s
+  //     infinite linear;
   background: linear-gradient(To Right, #996515, #f5bf03, #ffd700);
   background-size: 200% 200%;
   -webkit-background-clip: text;
@@ -68,13 +71,13 @@ const RoyalHeader = styled.span`
   display: inline-block;
 `;
 const RoyalFooter = styled.div`
-  font-size: 1.2em;
+  font-size: 1rem;
   margin-top: 40px;
   color: #6a4b3c;
 `;
 
 const InvitationLetter = ({ GuestNames }) => {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
   const eventName = "Our Signing Ceremony";
   const eventDate = "July 7th, 2024";
   const eventTime = "11:00 AM - 1:00 PM";
@@ -92,13 +95,15 @@ const InvitationLetter = ({ GuestNames }) => {
     <LetterContainer>
       <Letter data-aos="fade-in">
         <RoyalHeader shimmer>
-          {t("Dear")} <BlinkingText>{GuestNames?.join(", ")}</BlinkingText>,
+          {t("Dear")} {GuestNames?.join(", ")},
         </RoyalHeader>
         {/* Add content here */}
 
         <p>
           <BlinkingText>
-            {t("We hope this message finds you well. It is with great joy that we extend this invitation to join us for a memorable celebration. Your presence would truly make our day complete.")}
+            {t(
+              "We hope this message finds you well. It is with great joy that we extend this invitation to join us for a memorable celebration. Your presence would truly make our day complete."
+            )}
           </BlinkingText>
         </p>
         <p>
@@ -116,10 +121,14 @@ const InvitationLetter = ({ GuestNames }) => {
           </li>
         </EventDetails>
         <p>
-          {t("We have planned an occasion filled with warmth, laughter, and cherished moments. Your company means the world to us, and we cannot wait to share this special day with you.")}
+          {t(
+            "We have planned an occasion filled with warmth, laughter, and cherished moments. Your company means the world to us, and we cannot wait to share this special day with you."
+          )}
         </p>
         <p>
-          {t("Please RSVP By Pressing next button, so we can ensure everything is perfect for your visit.")}
+          {t(
+            "Please RSVP By Pressing next button, so we can ensure everything is perfect for your visit."
+          )}
         </p>
         <p>{t("Warm regards,")}</p>
         <p>Hnin & Moe</p>

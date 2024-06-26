@@ -1,6 +1,6 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
+import React from "react";
+import { useTranslation } from "react-i18next";
+import styled from "styled-components";
 
 // Styled components for Dress Code section
 const DressCodeWrapper = styled.div`
@@ -16,29 +16,43 @@ const DressCodeColors = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  @media screen and (max-width: 1200px) {
+    width: 80vw;
+  }
 `;
 
 const ColorBox = styled.div`
   width: 100px;
   height: 50px;
-  background-color: ${props => props.color};
+  background-color: ${(props) => props.color};
   border-radius: 10px;
+  @media screen and (max-width: 1200px) {
+    width: 22%;
+  }
 `;
 
 const DressCodeSection = () => {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
   return (
     <DressCodeWrapper>
       <h3>{t("Dress Code")}</h3>
       <DressCodeContent>
         <p>
-          {t("We would love for you to join us in celebrating in style!")} <br></br>
-          {t("While we are going with the elegance of ivory Burmese traditional attire,")} 
-          {t("please feel free to dress in whatever makes you comfortable.")} <br></br>
-          {t("Whether it's traditional attire, formal wear, or your favorite outfit, your presence is what matters most.")}
+          {t("We would love for you to join us in celebrating in style!")}{" "}
+          <br></br>
+          {t(
+            "While we are going with the elegance of ivory Burmese traditional attire,"
+          )}
+          {t("please feel free to dress in whatever makes you comfortable.")}{" "}
+          <br></br>
+          {t(
+            "Whether it's traditional attire, formal wear, or your favorite outfit, your presence is what matters most."
+          )}
         </p>
         <p>
-          {t("Should you choose to embrace our theme, we look forward to sharing a collective sense of cultural beauty on this special day.")}
+          {t(
+            "Should you choose to embrace our theme, we look forward to sharing a collective sense of cultural beauty on this special day."
+          )}
         </p>
       </DressCodeContent>
       <h4>{t("Color Scheme")}</h4>

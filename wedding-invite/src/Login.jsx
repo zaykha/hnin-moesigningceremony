@@ -1,16 +1,16 @@
 // src/components/Login.jsx
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import bgmobile from "./assets/Login.jpg";
 import { useNavigate } from "react-router-dom";
 import StyledButtonWithIcon from "./IconButton";
-import guests from './guests.json';
+import guests from "./guests.json";
 import { collection, doc, getDocs } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 import { useTranslation } from "react-i18next";
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,7 +27,14 @@ const Container = styled.div`
     background-position: center;
   }
 `;
-
+const rotateAnimation = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
 const Input = styled.input`
   //   margin: 0.5rem;
   //   padding: 0.5rem;
@@ -81,6 +88,21 @@ const Button = styled.button`
   font-size: 1rem;
   cursor: pointer;
 `;
+const LoaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`;
+
+const LoaderRing = styled.div`
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #ffdf00;
+  animation: ${rotateAnimation} 1s linear infinite;
+`;
 export const CustomInput = ({ id, label, onChange, ...props }) => {
   return (
     <InputContainer>
@@ -101,7 +123,10 @@ const Login = ({ setGuestNames, setAlreadyFilled }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleLogin = () => {
+    setIsLoading(true);
     const guest = guests.find(
       (guest) => guest.username === username && guest.password === password
     );
@@ -117,29 +142,34 @@ const Login = ({ setGuestNames, setAlreadyFilled }) => {
             }))
           );
 
-          console.log(flattenedData)
-          const findGuest = flattenedData.find(guest => guest.name === username);
-          console.log(findGuest, username)
+          console.log(flattenedData);
+          const findGuest = flattenedData.find(
+            (guest) => guest.name === username
+          );
+          console.log(findGuest, username);
           if (findGuest) {
-            setAlreadyFilled(flattenedData)
+            setAlreadyFilled(flattenedData);
             // setGuestNames(guest.guestNames)
             // setGuestData(docSnap.data());
-            console.log("already filled")
+            console.log("already filled");
             navigate("/amendDetailsPage");
           } else {
-            console.log('No such document!');
+            console.log("No such document!");
             navigate("/RSVPForm");
           }
         } catch (error) {
-          console.error('Error fetching document:', error);
+          console.error("Error fetching document:", error);
+        } finally {
+          setIsLoading(false); // Stop loading
         }
       };
-  
+
       fetchGuestData();
-      setGuestNames(guest.guestNames)
+      setGuestNames(guest.guestNames);
       // navigate("/RSVPForm");
     } else {
       setError("Invalid username or password");
+      setIsLoading(false);
     }
   };
 
@@ -174,9 +204,16 @@ const Login = ({ setGuestNames, setAlreadyFilled }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
-        {error && <p style={{color:"red"}}>{error}</p>}
-        <StyledButtonWithIcon onClick={handleLogin}>{t("Login")}</StyledButtonWithIcon>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        {isLoading ? (
+          <LoaderContainer>
+            <LoaderRing />
+          </LoaderContainer>
+        ) : (
+          <StyledButtonWithIcon onClick={handleClick}>
+            {t("Login")}
+          </StyledButtonWithIcon>
+        )}{" "}
         {/* <Button onClick={handleLogin}>Login</Button> */}
       </div>
     </Container>

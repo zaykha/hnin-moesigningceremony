@@ -27,24 +27,39 @@ import { useTranslation } from "react-i18next";
 const Container = styled.div`
   width: 100%;
   height: 100vh;
+  // position:fixed;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
-    url(${bgmobile}) no-repeat;
-  background-size: cover;
-  background-position: center;
+  // background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+  //   url(${bgmobile}) no-repeat;
+  // background-size: cover;
+  // background-position: center;
+  // background-attachment: fixed;
 
   @media screen and (max-width: 1200px) {
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2)),
       url(${bgmobile}) no-repeat;
     background-size: cover;
     background-position: center;
+    // justify-content: flex-start;
+  }
+  @media screen and (max-width: 768px) {
+    justify-content: flex-start;
   }
 `;
+const BgContainer = styled.div`
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+    url(${bgmobile}) no-repeat;
+  background-size: cover;
+  background-position: center;
+`;
 const StyledContainer = styled.div`
-  width: 60vw;
+  width: 90vw;
   /* height: 90vh; */
   padding: 3rem;
   display: flex;
@@ -60,18 +75,36 @@ const StyledContainer = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.3);
   z-index: 999;
   @media screen and (max-width: 1200px) {
-    width: 90%;
-    padding: 1.1rem;
+    width: 90vw;
+    padding: 1.5rem;
   }
 `;
-const Form = styled.form`
+const Form = styled.div`
   max-width: 400px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   z-index: 999;
+  // border: 1px solid green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // flex-wrap: wrap;
+  border: 1px solid grey;
+  border-radius: 15px;
+  margin: 20px auto;
+  // padding: 20px;
+  @media screen and (max-width: 1200px) {
+    width: 90vw;
+    // padding: 1.1rem;
+  }
 `;
-
+const Flexdiv = styled.div`
+  // border: 1px solid red;
+  width: 90vw;
+  display: flex;
+  flex-wrap: wrap;
+`;
 const Label = styled.label`
   margin-bottom: 0.5rem;
 `;
@@ -137,13 +170,17 @@ const Tabs = styled.div`
 const Tab = styled.div`
   padding: 10px;
   cursor: pointer;
-  background: ${(props) => (props.active ? "#f09819" : "#fff")};
-  color: ${(props) => (props.active ? "#fff" : "#000")};
-  border: ${(props) =>
-    props.completed ? "2px solid #4caf50" : "2px solid #ccc"};
+  background: ${(props) => {
+    if (props.completed) return "#4caf50";
+    if (props.active) return "#f09819";
+    return "#fff";
+  }};
+  color: ${(props) => (props.active || props.completed ? "#fff" : "#000")};
+  border: 2px solid ${(props) => (props.completed ? "#4caf50" : "#ccc")};
   border-radius: 5px;
   margin: 5px;
 `;
+
 // Define keyframes for background animation
 const gradientAnimation = keyframes`
   0% {
@@ -220,6 +257,7 @@ const StyledButton = styled.button`
 
   @media screen and (max-width: 1200px) {
     right: 45%;
+    top: 0;
   }
 `;
 const RSVPForm = ({ GuestNames }) => {
@@ -436,8 +474,9 @@ const RSVPForm = ({ GuestNames }) => {
   };
   return (
     <Container>
+      <BgContainer />
       <ConfettiEffect />
-      <GlitterEffect numGlitters={30} />
+      <GlitterEffect numGlitters={10} />
       <StyledContainer>
         {step > 1 && <StyledButton onClick={handlePrevStep}></StyledButton>}
         {/* <h1>We welcome you to our Signing Ceremony!</h1> */}
@@ -473,22 +512,23 @@ const RSVPForm = ({ GuestNames }) => {
           <div>
             <h2>{t("RSVP")}</h2>
             <p>{t("Who is coming:")}</p>
-
-            <Form>
+            <Flexdiv>
               {GuestNames.map((name, index) => (
-                <div
-                  key={index}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexWrap: "wrap",
-                    border: "1px solid grey",
-                    borderRadius: "15px",
-                    margin: "20px auto",
-                    padding: "20px",
-                  }}
-                >
+                <Form key={index}>
+                  {/* <div
+                    
+                    style={{
+                      // width: "20%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexWrap: "wrap",
+                      border: "1px solid grey",
+                      borderRadius: "15px",
+                      margin: "20px auto",
+                      padding: "20px",
+                    }}
+                  > */}
                   <input
                     style={{
                       background: "none",
@@ -528,10 +568,12 @@ const RSVPForm = ({ GuestNames }) => {
                     </StyledButtonRadio>
                   </div>
                   <div></div>
-                </div>
+                  {/* </div> */}
+                </Form>
               ))}
               {/* <StyledButtonWithIcon type="submit">Submit</StyledButtonWithIcon> */}
-            </Form>
+            </Flexdiv>
+
             {showAttendanceError && (
               <p style={{ color: "red" }}>
                 {t("Please select attendance status for all guests.")}
