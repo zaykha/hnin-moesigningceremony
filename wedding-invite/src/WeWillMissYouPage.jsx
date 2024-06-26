@@ -13,17 +13,26 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  // background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+  //   url(${bgmobile}) no-repeat;
+  // background-size: cover;
+  // background-position: center;
+
+  @media screen and (max-width: 1200px) {
+    // background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2)),
+    //   url(${bgmobile}) no-repeat;
+    // background-size: cover;
+    // background-position: center;
+  }
+`;
+const BgContainer = styled.div`
+  width: 100%;
+  height: 100vh;
+  position: fixed;
   background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
     url(${bgmobile}) no-repeat;
   background-size: cover;
   background-position: center;
-
-  @media screen and (max-width: 1200px) {
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2)),
-      url(${bgmobile}) no-repeat;
-    background-size: cover;
-    background-position: center;
-  }
 `;
 const StyledContainer = styled.div`
   width: 60vw;
@@ -53,6 +62,7 @@ const WeWillMissYouPage = () => {
   const { t } = useTranslation();
   return (
     <Container>
+      <BgContainer/>
       <StyledContainer>
         <h1>{t("We Will Miss You!")}</h1>
         <p>

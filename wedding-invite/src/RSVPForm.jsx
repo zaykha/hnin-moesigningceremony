@@ -99,6 +99,26 @@ const Form = styled.div`
     // padding: 1.1rem;
   }
 `;
+const Form1 = styled.form`
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+  // border: 1px solid green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // flex-wrap: wrap;
+  border: 1px solid grey;
+  border-radius: 15px;
+  margin: 20px auto;
+  // padding: 20px;
+  @media screen and (max-width: 1200px) {
+    width: 90vw;
+    // padding: 1.1rem;
+  }
+`;
 const Flexdiv = styled.div`
   // border: 1px solid red;
   width: 90vw;
@@ -260,6 +280,29 @@ const StyledButton = styled.button`
     top: 0;
   }
 `;
+const rotateAnimation = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+const LoaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`;
+
+const LoaderRing = styled.div`
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #ffdf00;
+  animation: ${rotateAnimation} 1s linear infinite;
+`;
 const RSVPForm = ({ GuestNames }) => {
   const { t } = useTranslation();
   // State to manage attendance for each guest
@@ -268,6 +311,8 @@ const RSVPForm = ({ GuestNames }) => {
   const [currentGuest, setCurrentGuest] = useState(GuestNames[0]);
   const [showAttendanceError, setShowAttendanceError] = useState(false);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
   useEffect(() => {
     initializeAttendance();
@@ -344,7 +389,7 @@ const RSVPForm = ({ GuestNames }) => {
   };
   const handleDishSubmit = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     try {
       // Check if all attending guests have selected their dishes
       const attendingGuests = Object.entries(attendance)
@@ -359,6 +404,7 @@ const RSVPForm = ({ GuestNames }) => {
         setError(
           "Please choose dishes for all attending guests before submitting."
         );
+        setIsLoading(false);
         return;
       }
 
@@ -401,6 +447,7 @@ const RSVPForm = ({ GuestNames }) => {
       });
       // Navigate based on attending status
       if (attendingGuests.length > 0) {
+        setIsLoading(false);
         navigate("/thankYou");
       } else {
         navigate("/WeWillMissYou");
@@ -408,6 +455,8 @@ const RSVPForm = ({ GuestNames }) => {
     } catch (error) {
       console.error("Error adding document:", error);
       setError("An error occurred while submitting. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
   // const handleDishSubmit = async (e) => {
@@ -582,7 +631,7 @@ const RSVPForm = ({ GuestNames }) => {
           </div>
         )}
         {step === 5 && (
-          <Form onSubmit={handleDishSubmit}>
+          <Form1 onSubmit={handleDishSubmit}>
             <Tabs>
               {GuestNames.filter(
                 (name) => attendance[name] === "attending"
@@ -658,12 +707,18 @@ const RSVPForm = ({ GuestNames }) => {
                 </StyledButtonRadio>
               </div>
             </div>
+            {isLoading ? (
+              <LoaderContainer>
+                <LoaderRing />
+              </LoaderContainer>
+            ) : (
+              <StyledButtonWithIcon type="submit">
+                {t("Submit")}
+              </StyledButtonWithIcon>
+            )}
 
-            <StyledButtonWithIcon type="submit">
-              {t("Submit")}
-            </StyledButtonWithIcon>
             {error && <p style={{ color: "red" }}>{error}</p>}
-          </Form>
+          </Form1>
         )}
         {step < 5 ? (
           <StyledButtonWithIcon type="button" onClick={handleNextStep}>
