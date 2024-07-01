@@ -123,7 +123,7 @@ const Flexdiv = styled.div`
   // border: 1px solid red;
   width: 70vw;
   display: flex;
-  justify-content:space-evenly;
+  justify-content: space-evenly;
   flex-wrap: wrap;
 `;
 const Label = styled.label`
@@ -231,6 +231,17 @@ const StyledButtonRadio = styled.div`
   &:focus {
     outline: none;
   }
+`;
+const StyledButtonRadio1 = styled.div`
+  width: 10rem;
+  padding: 10px 20px;
+  background-color: #d4af37;
+  color: #000;
+  border: #d4af37;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  margin: 10px;
 `;
 // Styled component for the button
 const StyledButton = styled.button`
@@ -393,7 +404,7 @@ const RSVPForm = ({ GuestNames }) => {
       console.error("Error updating Firestore: ", error);
     }
   };
-  const handleNextStep =async() => {
+  const handleNextStep = async () => {
     setIsLoading(true);
     if (step === 4) {
       if (noGuestsAttended()) {
@@ -664,7 +675,14 @@ const RSVPForm = ({ GuestNames }) => {
               ))}
             </Tabs>
 
-            <div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <h2>{currentGuest}</h2>
 
               <h3>Entree</h3>
@@ -681,7 +699,9 @@ const RSVPForm = ({ GuestNames }) => {
                     )
                   }
                 >
-                  {t("Green mango salad")}
+                  {t(
+                    "Green mango salad with Swiss style fish crispy, sour cream, pickled vegetables and rockets"
+                  )}
                 </StyledButtonRadio>
                 <StyledButtonRadio
                   selected={
@@ -691,7 +711,7 @@ const RSVPForm = ({ GuestNames }) => {
                     handleDishSelection(currentGuest, "entree", "Pumpkin soup")
                   }
                 >
-                  {t("Pumpkin soup")}
+                  {t("Pumpkin soup with mango and apple")}
                 </StyledButtonRadio>
               </div>
 
@@ -710,7 +730,9 @@ const RSVPForm = ({ GuestNames }) => {
                     )
                   }
                 >
-                  {t("Duck agnolotti")}
+                  {t(
+                    "Duck agnolotti with asparagus salad, brown sauce and olive oil foam"
+                  )}
                 </StyledButtonRadio>
                 <StyledButtonRadio
                   selected={
@@ -720,10 +742,34 @@ const RSVPForm = ({ GuestNames }) => {
                     handleDishSelection(currentGuest, "mainCourse", "Seabass")
                   }
                 >
-                  {t("Seabass")}
+                  {t(
+                    "Pan fried fish seabass with vegetable cous cous, Kaffir lime cream sauce and organic vegetables"
+                  )}
                 </StyledButtonRadio>
               </div>
+              <h3
+                style={{
+                  margin: "0",
+                }}
+              >
+                Dessert
+              </h3>
+              <StyledButtonRadio1>
+                Ananda chocolate mousse with caramelized banana and banana ice
+                cream
+              </StyledButtonRadio1>
             </div>
+             <h3
+                style={{
+                  margin: "0",
+                }}
+              >
+                Free flow non-alcoholic Beverages
+              </h3>
+              <StyledButtonRadio1>
+               Soft drinks, fruit based mocktail, water, coffee and tea
+              </StyledButtonRadio1>
+           
             {isLoading ? (
               <LoaderContainer>
                 <LoaderRing />
@@ -738,14 +784,15 @@ const RSVPForm = ({ GuestNames }) => {
           </Form1>
         )}
         {step < 5 ? (
-           isLoading ? (
+          isLoading ? (
             <LoaderContainer>
               <LoaderRing />
             </LoaderContainer>
           ) : (
-          <StyledButtonWithIcon type="button" onClick={handleNextStep}>
-            {t("Next")}
-          </StyledButtonWithIcon>)
+            <StyledButtonWithIcon type="button" onClick={handleNextStep}>
+              {t("Next")}
+            </StyledButtonWithIcon>
+          )
         ) : (
           <></>
         )}

@@ -67,9 +67,10 @@ const TableHeader = styled.th`
 const TableBody = styled.tbody``;
 
 const TableRow = styled.tr`
-//   &:nth-child(even) {
-//     background-color: #f2f2f2;
-//   }
+  //   &:nth-child(even) {
+  //     background-color: #f2f2f2;
+  //   }
+  background-color: ${({ bgColor }) => bgColor};
   &:hover {
     background-color: #858181;
   }
@@ -87,44 +88,70 @@ const AdminDashboard = () => {
     const fetchData = async () => {
       const querySnapshot = await getDocs(collection(db, "rsvps"));
       const data = querySnapshot.docs.map((doc) => doc.data());
+      // console.log(data)
       const flattenedData = data.flatMap((item) =>
         item.guests.map((guest) => ({
           ...guest,
           // Attach the document ID for reference if needed
         }))
       );
-      setGuestData(flattenedData);
+      setGuestData(data);
     };
 
     fetchData();
   }, []);
-
+  const colors = [
+    "rgba(255, 99, 71, 0.3)", // Tomato
+    "rgba(135, 206, 235, 0.3)", // SkyBlue
+    "rgba(255, 165, 0, 0.3)", // Orange
+    "rgba(144, 238, 144, 0.3)", // LightGreen
+    "rgba(255, 182, 193, 0.3)", // LightPink
+    "rgba(173, 216, 230, 0.3)", // LightBlue
+    "rgba(255, 105, 180, 0.3)", // HotPink
+    "rgba(240, 230, 140, 0.3)", // Khaki
+    "rgba(221, 160, 221, 0.3)", // Plum
+    "rgba(64, 224, 208, 0.3)", // Turquoise
+  ];
   return (
     <Container>
       <StyledContainer>
         <h1>Admin Dashboard</h1>
         <StyledTable>
-        <TableHead>
-          <TableHeadRow>
-            <TableHeader>Name</TableHeader>
-            <TableHeader>Attending</TableHeader>
-            <TableHeader>Dish Entree</TableHeader>
-            <TableHeader>Dish Main</TableHeader>
-            <TableHeader>Notes</TableHeader>
-          </TableHeadRow>
-        </TableHead>
-        <TableBody>
-          {guestData?.map((guest, index) => (
-            <TableRow key={index}>
+          <TableHead>
+            <TableHeadRow>
+              <TableHeader>Name</TableHeader>
+              <TableHeader>Attending</TableHeader>
+              <TableHeader>Dish Entree</TableHeader>
+              <TableHeader>Dish Main</TableHeader>
+              <TableHeader>Notes</TableHeader>
+            </TableHeadRow>
+          </TableHead>
+          <TableBody>
+            {/* {guestData?.map((guest, index) => (
+            <TableRow key={index} bgColor={colors[index % colors.length]}>
               <TableCell>{guest.name}</TableCell>
               <TableCell>{guest.attending}</TableCell>
               <TableCell>{guest.entree}</TableCell>
               <TableCell>{guest.mainCourse}</TableCell>
               <TableCell>{guest.notes}</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </StyledTable>
+          ))} */}
+            {guestData.map((guestGroup, groupIndex) =>
+              guestGroup.guests.map((guest, index) => (
+                <TableRow
+                  key={index}
+                  bgColor={colors[groupIndex % colors.length]}
+                >
+                  <TableCell>{guest.name}</TableCell>
+                  <TableCell>{guest.attending}</TableCell>
+                  <TableCell>{guest.entree}</TableCell>
+                  <TableCell>{guest.mainCourse}</TableCell>
+                  <TableCell>{guest.notes}</TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </StyledTable>
       </StyledContainer>
     </Container>
   );

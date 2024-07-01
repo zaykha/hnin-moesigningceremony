@@ -7,6 +7,8 @@ import bgmobile from "./assets/bg1.jpg";
 import StyledButtonWithIcon from "./IconButton";
 import { useTranslation } from "react-i18next";
 import { useMediaQuery } from "react-responsive";
+import CountdownTimer from "./CountdownTimer";
+import RSVPStatistics from "./RSVPStats";
 const Container = styled.div`
   width: 100%;
   height: 100vh; /* Use vh instead of svh for better support */
@@ -119,10 +121,13 @@ const AmendDetailsPage = ({ AlreadyFilled }) => {
   if (!AlreadyFilled) {
     return <div>Loading...</div>;
   }
-
+  const weddingStartDate = "2024-07-07T11:00:00";
+  const weddingEndDate = "2024-07-07T13:00:00"; 
   return (
     <Container>
       <StyledContainer>
+        <CountdownTimer startDate={weddingStartDate} endDate={weddingEndDate}/>
+        <RSVPStatistics />
         <h1>{t("It looks like you have already filled in the details.")}</h1>
         <h3>{t("Do you need to amend details?")}</h3>
         {isDesktop ? (
