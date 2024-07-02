@@ -12,7 +12,7 @@
     {
       "username": "Ba Ba Gyi",
       "password": "Hnin&Moe",
-      "guestNames": ["Ba Ba Gyi", "Aunty Su Su Hlaing","Aye Chan Saint", "Ei Myat Chel"]
+      "guestNames": ["Ba Ba Gyi", "Aunty Su Su Hlaing"]
     },
     {
       "username": "Ba Ba",
@@ -105,9 +105,9 @@
       "guestNames": ["Ei Thinzar Moe"]
     },
     {
-      "username": "su sandi oo",
+      "username": "Su Sandi Oo",
       "password": "Hnin&Moe",
-      "guestNames": ["su sandi oo"]
+      "guestNames": ["Su Sandi Oo"]
     },
     {
       "username": "Moe Khin",
@@ -143,6 +143,26 @@
       "username": "Sayar", 
       "password": "Hnin&Moe", 
       "guestNames": ["Sayar","Aunty Mi Thu","Suki"] 
+    },
+    {
+      "username": "Ko Sammy", 
+      "password": "Hnin&Moe", 
+      "guestNames": ["Ko Sammy","Ko Sammy's Wife","Ma Go Go","Ma Mee"] 
+    },
+    {
+      "username": "Kout Kway", 
+      "password": "Hnin&Moe", 
+      "guestNames": ["Kout Kway","Cho"] 
+    },
+    {
+      "username": "Ma Ma Aye Chan", 
+      "password": "Hnin&Moe", 
+      "guestNames": ["Ma Ma Aye Chan","Ei Myat"] 
+    },
+    {
+      "username": "Aunty Sandar", 
+      "password": "Hnin&Moe", 
+      "guestNames": ["Aunty Sandar"] 
     }
   ]
   
