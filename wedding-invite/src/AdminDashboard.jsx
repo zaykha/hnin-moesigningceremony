@@ -3,13 +3,15 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebaseConfig"; // Make sure to import your firebase config
 import bgmobile from "./assets/bg1.jpg";
 import styled from "styled-components";
+import CountdownTimer from "./CountdownTimer";
+import RSVPStatistics from "./RSVPStats";
 const Container = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
     url(${bgmobile}) no-repeat;
   background-size: cover;
@@ -29,7 +31,7 @@ const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   /* marginTop: 30px; */
   background: rgba(0, 0, 0, 0.6);
   border-radius: 16px;
@@ -41,6 +43,18 @@ const StyledContainer = styled.div`
   @media screen and (max-width: 1200px) {
     width: 90%;
     padding: 1.1rem;
+  }
+`;
+const StyledTableContainer = styled.div`
+  width: 100%;
+  max-height: 400px; /* Fixed height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  margin: 20px 0;
+
+  @media screen and (max-width: 768px) {
+    max-height: 300px; /* Adjust height for mobile */
+    font-size: 0.8rem; /* Smaller font size for mobile */
+    margin: 10px 0;
   }
 `;
 const StyledTable = styled.table`
@@ -62,6 +76,9 @@ const TableHeader = styled.th`
   padding: 12px 15px;
   text-align: left;
   font-weight: bold;
+  @media screen and (max-width: 768px) {
+    padding: 5px 15px;
+  }
 `;
 
 const TableBody = styled.tbody``;
@@ -80,6 +97,9 @@ const TableCell = styled.td`
   padding: 12px 15px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  @media screen and (max-width: 768px) {
+    padding: 5px 10px;
+  }
 `;
 const AdminDashboard = () => {
   const [guestData, setGuestData] = useState([]);
@@ -112,10 +132,16 @@ const AdminDashboard = () => {
     "rgba(221, 160, 221, 0.3)", // Plum
     "rgba(64, 224, 208, 0.3)", // Turquoise
   ];
+  const weddingStartDate = "2024-07-07T11:00:00";
+  const weddingEndDate = "2024-07-07T13:00:00"; 
   return (
     <Container>
       <StyledContainer>
         <h1>Admin Dashboard</h1>
+        <CountdownTimer startDate={weddingStartDate} endDate={weddingEndDate}/>
+        <RSVPStatistics />
+        <StyledTableContainer>
+          
         <StyledTable>
           <TableHead>
             <TableHeadRow>
@@ -123,7 +149,7 @@ const AdminDashboard = () => {
               <TableHeader>Attending</TableHeader>
               <TableHeader>Dish Entree</TableHeader>
               <TableHeader>Dish Main</TableHeader>
-              <TableHeader>Notes</TableHeader>
+              {/* <TableHeader>Notes</TableHeader> */}
             </TableHeadRow>
           </TableHead>
           <TableBody>
@@ -146,12 +172,14 @@ const AdminDashboard = () => {
                   <TableCell>{guest.attending}</TableCell>
                   <TableCell>{guest.entree}</TableCell>
                   <TableCell>{guest.mainCourse}</TableCell>
-                  <TableCell>{guest.notes}</TableCell>
+                  {/* <TableCell>{guest.notes}</TableCell> */}
                 </TableRow>
               ))
             )}
           </TableBody>
         </StyledTable>
+        </StyledTableContainer>
+      
       </StyledContainer>
     </Container>
   );

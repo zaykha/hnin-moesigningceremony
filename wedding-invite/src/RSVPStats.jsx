@@ -49,6 +49,11 @@ const StatisticsContainer = styled.div`
   border-radius: 10px;
   color: white;
   margin: 20px auto;
+  @media screen and (max-width: 1200px) {
+   padding:10px;
+   font-size:0.9rem;
+   margin: 10px auto;
+  }
 `;
 
 const Statistic = styled.div`

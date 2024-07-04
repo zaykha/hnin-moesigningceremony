@@ -1,5 +1,20 @@
 [
-    {
+  {
+    "username": "Moe Zay Kha",
+    "password": "Hnin&Moe",
+    "guestNames": ["Moe Zay Kha","Pa Pa","Mo Mo"]
+  },
+  {
+    "username": "Paton",
+    "password": "Hnin&Moe",
+    "guestNames": ["Paton"]
+  }, 
+  {
+    "username": "Nge Nge",
+    "password": "Hnin&Moe",
+    "guestNames": ["Nge Nge","Shwe Shwe"]
+  },    
+  {
       "username": "Hnin",
       "password": "Hnin&Moe",
       "guestNames": ["Hnin", "Mother"]
@@ -7,7 +22,7 @@
     {
       "username": "Ba Ba Lay",
       "password": "Hnin&Moe",
-      "guestNames": ["Ba Ba Lay","Aunty Su Su Mon","Phyu Phwe","Kaung Htet Zaw"]
+      "guestNames": ["Ba Ba Lay","Aunty Su Su Mon","Phyu Phwe","Kyaw Si Thar Swe"]
     },
     {
       "username": "Ba Ba Gyi",
@@ -142,7 +157,7 @@
     {
       "username": "Sayar", 
       "password": "Hnin&Moe", 
-      "guestNames": ["Sayar","Aunty Mi Thu","Suki"] 
+      "guestNames": ["Sayar","Aunty Mi Thu","Suki","Pwar Pwar Aye","Plus 1"] 
     },
     {
       "username": "Ko Sammy", 
@@ -163,6 +178,17 @@
       "username": "Aunty Sandar", 
       "password": "Hnin&Moe", 
       "guestNames": ["Aunty Sandar"] 
+    },
+    {
+      "username": "Ko Arkar", 
+      "password": "Hnin&Moe", 
+      "guestNames": ["Ko Gyi Arker"] 
+    },
+    {
+      "username": "Kaung Htet Myo", 
+      "password": "Hnin&Moe", 
+      "guestNames": ["Kaung Htet Myo, No No"] 
     }
+    
   ]
   

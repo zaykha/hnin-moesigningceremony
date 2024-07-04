@@ -78,7 +78,6 @@ const TimerContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
   color: #000; /* Make text color stand out */
   font-weight: bold; /* Make text bold */
   background: rgba(0, 0, 0, 0.6);
@@ -93,6 +92,10 @@ const TimerContainer = styled.div`
   @media screen and (max-width: 1200px) {
   font-size: 1.2rem;
   margin:5px auto;
+  @media screen and (max-width: 1200px) {
+    font-size:0.9rem;
+    padding: 10px;
+   }
   }
 `;
 
