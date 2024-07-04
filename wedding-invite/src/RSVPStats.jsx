@@ -25,7 +25,8 @@ const RSVPStatistics = () => {
   return (
     <StatisticsContainer>
       <Statistic>
-        <strong>Total Guests:</strong> {totalGuests}
+        <strong>Total Guests:</strong> 66
+        {/* {totalGuests} */}
       </Statistic>
       <Statistic>
         <strong>Attending:</strong> {attending}
@@ -59,4 +60,8 @@ const StatisticsContainer = styled.div`
 const Statistic = styled.div`
   margin: 10px 0;
   font-size: 1rem;
+  @media screen and (max-width: 1200px) {
+    margin: 5px 0;
+  font-size: 0.8rem;
+   }
 `;
